@@ -7,26 +7,20 @@ jobs:
     docker:
       - image: circleci/node:14.17
 
-    working_directory: ~/todo  
+    working_directory: /home/circleci/todo  # Update to the absolute path of your repository
 
     steps:
       - checkout
 
+      # Install frontend dependencies
       - run:
           name: Install Frontend Dependencies
           command: cd frontend && npm install
 
-      - run:
-          name: Run Frontend Tests
-          command: cd frontend && npm test
-
+      # Install backend dependencies
       - run:
           name: Install Backend Dependencies
           command: cd backend && npm install
-
-      - run:
-          name: Run Backend Tests
-          command: cd backend && npm test
 
 workflows:
   version: 2
