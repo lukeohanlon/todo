@@ -1,0 +1,39 @@
+version: 2.1
+orbs:
+  node: circleci/node@16.14.0
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14.17
+
+    working_directory: ~/app
+
+    steps:
+      - checkout
+
+      # Install frontend dependencies
+      - run:
+          name: Install Frontend Dependencies
+          command: cd frontend && npm install
+
+      # Run frontend tests
+      - run:
+          name: Run Frontend Tests
+          command: cd frontend && npm test
+
+      # Install backend dependencies
+      - run:
+          name: Install Backend Dependencies
+          command: cd backend && npm install
+
+      # Run backend tests
+      - run:
+          name: Run Backend Tests
+          command: cd backend && npm test
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
